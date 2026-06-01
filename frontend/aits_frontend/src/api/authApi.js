@@ -20,3 +20,6 @@ export function registerUser(data) {
     body: JSON.stringify(data),
   });
 }
+
+export function logoutUser() {
+  return apiRequest("/users/auth/logout/", {
