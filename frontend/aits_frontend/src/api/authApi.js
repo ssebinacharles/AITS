@@ -23,3 +23,15 @@ export function registerUser(data) {
 
 export function logoutUser() {
   return apiRequest("/users/auth/logout/", {
+    method: "POST",
+  });
+}
+
+export function getCurrentUser() {
+  return apiRequest("/users/auth/me/");
+}
+
+export const login = loginUser;
+export const register = registerUser;
+export const logout = logoutUser;
+export const getCurrent = getCurrentUser;
