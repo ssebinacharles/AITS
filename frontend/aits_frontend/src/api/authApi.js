@@ -16,3 +16,7 @@ export function registerUser(data) {
 
 export function registerUser(data) {
   return apiRequest("/users/auth/register/", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
