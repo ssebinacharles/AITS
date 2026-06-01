@@ -13,3 +13,6 @@ export function registerUser(data) {
     body: JSON.stringify(data),
   });
 }
+
+export function registerUser(data) {
+  return apiRequest("/users/auth/register/", {
