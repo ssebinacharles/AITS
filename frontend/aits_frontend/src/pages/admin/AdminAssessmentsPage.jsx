@@ -342,3 +342,20 @@ const innerBoxStyle = {
   marginBottom: "12px",
   background: "#fafafa",
 };
+
+const feedbackBoxStyle = {
+  border: "1px solid #e5e7eb",
+  borderRadius: "8px",
+  padding: "10px",
+  marginBottom: "10px",
+  background: "#fff",
+};
+
+const resultBoxStyle = {
+  border: "1px solid #bbf7d0",
+  borderRadius: "8px",
+  padding: "12px",
+  background: "#f0fdf4",
+};
+
+export default AdminAssessmentsPage;
