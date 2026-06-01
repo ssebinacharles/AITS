@@ -326,3 +326,19 @@ function AdminAssessmentsPage() {
     </div>
   );
 }
+
+const boxStyle = {
+  border: "1px solid #ddd",
+  borderRadius: "8px",
+  padding: "16px",
+  marginBottom: "18px",
+  background: "#fff",
+};
+
+const innerBoxStyle = {
+  border: "1px solid #eee",
+  borderRadius: "8px",
+  padding: "12px",
+  marginBottom: "12px",
+  background: "#fafafa",
+};
