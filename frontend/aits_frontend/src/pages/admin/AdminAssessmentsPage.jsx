@@ -226,3 +226,103 @@ function AdminAssessmentsPage() {
                   </div>
                 ))
               )}
+
+              <h3>Supervisor Evaluations</h3>
+
+              {placementEvaluations.length === 0 ? (
+                <p>No supervisor evaluations submitted yet.</p>
+              ) : (
+                placementEvaluations.map((evaluation) => (
+                  <div key={evaluation.id} style={innerBoxStyle}>
+                    <h4>{evaluation.evaluation_type}</h4>
+
+                    <p>
+                      <strong>Evaluator:</strong>{" "}
+                      {evaluation.evaluator?.user?.username || "-"}
+                    </p>
+
+                    <p>
+                      <strong>Evaluator Type:</strong>{" "}
+                      {evaluation.evaluator?.supervisor_type || "-"}
+                    </p>
+
+                    <p>
+                      <strong>Status:</strong> {evaluation.status}
+                    </p>
+
+                    <p>
+                      <strong>Submitted At:</strong>{" "}
+                      {evaluation.submitted_at
+                        ? formatDateTime(evaluation.submitted_at)
+                        : "Not submitted yet"}
+                    </p>
+
+                    <p>
+                      <strong>Total Score:</strong>{" "}
+                      {displayScore(evaluation.total_score)}
+                    </p>
+
+                    <p>
+                      <strong>Weighted Score:</strong>{" "}
+                      {displayScore(evaluation.weighted_score)}
+                    </p>
+
+                    <p>
+                      <strong>Remarks:</strong>{" "}
+                      {evaluation.remarks || "-"}
+                    </p>
+                  </div>
+                ))
+              )}
+
+              <h3>Final Result Summary</h3>
+
+              {finalResult ? (
+                <div style={resultBoxStyle}>
+                  <p>
+                    <strong>Assessed Weekly Logs:</strong>{" "}
+                    {finalResult.assessed_weekly_logs_count ?? 0}
+                  </p>
+
+                  <p>
+                    <strong>Average Weekly Logs Score:</strong>{" "}
+                    {displayScore(finalResult.weekly_logs_score)}
+                  </p>
+
+                  <p>
+                    <strong>Supervisor Evaluation Score:</strong>{" "}
+                    {displayScore(finalResult.supervisor_evaluation_score)}
+                  </p>
+
+                  <p>
+                    <strong>Workplace Assessment Score:</strong>{" "}
+                    {displayScore(finalResult.workplace_assessment_score)}
+                  </p>
+
+                  <p>
+                    <strong>Final Report Score:</strong>{" "}
+                    {displayScore(finalResult.final_report_score)}
+                  </p>
+
+                  <p>
+                    <strong>Final Mark:</strong>{" "}
+                    {displayScore(finalResult.final_mark)}
+                  </p>
+
+                  <p>
+                    <strong>Published At:</strong>{" "}
+                    {finalResult.published_at
+                      ? formatDateTime(finalResult.published_at)
+                      : "Not published yet"}
+                  </p>
+                </div>
+              ) : (
+                <p>No final result record found yet.</p>
+              )}
+            </div>
+          );
+        })
+      )}
+    </div>
+  );
+}
