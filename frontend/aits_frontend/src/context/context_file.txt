@@ -1,2 +1,9 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+
+const DashboardLayout = () => {
+
+  const linkStyle = ({ isActive }) => ({
+    display: 'block',
+    padding: '10px 12px',
+    marginBottom: '6px',
