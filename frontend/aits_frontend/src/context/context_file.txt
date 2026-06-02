@@ -41,3 +41,17 @@ const DashboardLayout = () => {
                 Placements
               </NavLink>
             </li>
+
+            <li>
+              <NavLink to="/student/logs" style={linkStyle}>
+                Weekly Logs
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/student/results" style={linkStyle}>
+                Results
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      </aside>
