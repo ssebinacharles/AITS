@@ -369,3 +369,91 @@ function AcademicSupervisorDashboard() {
           ))
         )}
       </Section>
+      <Section title="Academic Evaluation Records">
+        {dashboard.evaluations.length === 0 ? (
+          <p>No academic evaluations found.</p>
+        ) : (
+          dashboard.evaluations.map((evaluation) => (
+            <ListItem key={evaluation.id}>
+              <h3>{evaluation.evaluation_type}</h3>
+
+              <p>
+                <strong>Student:</strong>{" "}
+                {evaluation.placement?.student?.registration_number || "-"}
+              </p>
+
+              <p>
+                <strong>Company:</strong>{" "}
+                {evaluation.placement?.company?.company_name || "-"}
+              </p>
+
+              <p>
+                <strong>Status:</strong>{" "}
+                <span
+                  className={`badge badge-${String(
+                    evaluation.status || ""
+                  ).toLowerCase()}`}
+                >
+                  {evaluation.status || "-"}
+                </span>
+              </p>
+
+              <p>
+                <strong>Submitted At:</strong>{" "}
+                {evaluation.submitted_at
+                  ? formatDateTime(evaluation.submitted_at)
+                  : "Not submitted yet"}
+              </p>
+
+              <p>
+                <strong>Total Score:</strong>{" "}
+                {displayScore(evaluation.total_score)}
+              </p>
+
+              <p>
+                <strong>Weighted Score:</strong>{" "}
+                {displayScore(evaluation.weighted_score)}
+              </p>
+
+              <p>
+                <strong>Remarks:</strong> {evaluation.remarks || "-"}
+              </p>
+            </ListItem>
+          ))
+        )}
+      </Section>
+    </Page>
+  );
+}
+
+function Page({ children }) {
+  return <div className="page">{children}</div>;
+}
+
+function Grid({ children }) {
+  return <div className="dashboard-grid">{children}</div>;
+}
+
+function Card({ title, value }) {
+  return (
+    <div className="stat-card">
+      <h2>{value}</h2>
+      <p>{title}</p>
+    </div>
+  );
+}
+
+function Section({ title, children }) {
+  return (
+    <section className="card">
+      <h2>{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function ListItem({ children }) {
+  return <div className="info-card">{children}</div>;
+}
+
+export default AcademicSupervisorDashboard;
