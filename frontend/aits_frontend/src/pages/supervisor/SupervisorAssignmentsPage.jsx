@@ -198,3 +198,37 @@ function SupervisorAssignmentsPage() {
       </div>
     );
   }
+ const academicSupervisors = getAcademicSupervisors();
+  const workplaceSupervisors = getWorkplaceSupervisors();
+
+  return (
+    <div style={{ padding: "30px" }}>
+      <h1>Supervisor Assignments</h1>
+
+      <p>
+        This page displays academic supervisor and workplace supervisor
+        assignments for internship placements.
+      </p>
+
+      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
+      {isAdmin && (
+        <section style={sectionStyle}>
+          <h2>Approve Placements & Assign Supervisors</h2>
+
+          {placements.length === 0 ? (
+            <p>No placements found.</p>
+          ) : (
+            placements.map((placement) => {
+              const existingAcademic = getActiveAssignmentForRole(
+                placement.id,
+                "ACADEMIC"
+              );
+
+              const existingWorkplace = getActiveAssignmentForRole(
+                placement.id,
+                "WORKPLACE"
+              );
+
+              const placementAssignments = getPlacementAssignments(placement.id);
