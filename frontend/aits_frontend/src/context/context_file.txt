@@ -29,3 +29,16 @@ const DashboardLayout = () => {
         <h3 style={{ marginBottom: '1.5rem', color: '#007bff' }}>
           Student Portal
         </h3>
+
+        <nav>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            <li>
+              <NavLink to="/student/dashboard" style={linkStyle}>
+                Dashboard
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/student/placements" style={linkStyle}>
+                Placements
+              </NavLink>
+            </li>
