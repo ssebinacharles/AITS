@@ -326,5 +326,46 @@ function AcademicSupervisorDashboard() {
           ))
         )}
       </Section>
+      <Section title="Feedback Given by You">
+        {dashboard.feedback.length === 0 ? (
+          <p>No feedback submitted yet.</p>
+        ) : (
+          dashboard.feedback.map((feedback) => (
+            <ListItem key={feedback.id}>
+              <h3>{feedback.decision}</h3>
 
+              <p>
+                <strong>Weekly Log:</strong>{" "}
+                {feedback.weekly_log
+                  ? `Week ${feedback.weekly_log.week_number} - ${feedback.weekly_log.title}`
+                  : "-"}
+              </p>
 
+              <p>
+                <strong>Student:</strong>{" "}
+                {feedback.weekly_log?.registration_number || "-"}
+              </p>
+
+              <p>
+                <strong>Company:</strong>{" "}
+                {feedback.weekly_log?.company_name || "-"}
+              </p>
+
+              <p>
+                <strong>Feedback Sent At:</strong>{" "}
+                {feedback.created_at
+                  ? formatDateTime(feedback.created_at)
+                  : "-"}
+              </p>
+
+              <p>
+                <strong>Score:</strong> {displayScore(feedback.score)}
+              </p>
+
+              <p>
+                <strong>Comment:</strong> {feedback.comment || "-"}
+              </p>
+            </ListItem>
+          ))
+        )}
+      </Section>
