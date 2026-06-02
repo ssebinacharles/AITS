@@ -75,3 +75,6 @@ const DashboardLayout = () => {
           </span>
         </header>
 
+        {/* Content */}
+        <section style={{ padding: '1.5rem' }}>
+          <Outlet />
