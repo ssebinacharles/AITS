@@ -54,10 +54,8 @@ const DashboardLayout = () => {
           </ul>
         </nav>
       </aside>
-
       {/* Main */}
-      <main style={{ flex: 1, background: '#f5f7fa' }}>
-        
+      <main style={{ flex: 1, background: '#f5f7fa' }}>        
         {/* Header */}
         <header
           style={{
