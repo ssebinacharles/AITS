@@ -12,3 +12,14 @@ const DashboardLayout = () => {
     backgroundColor: isActive ? '#007bff' : 'transparent',
     transition: 'all 0.2s ease'
   });
+
+
+  return (
+    <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Arial, sans-serif' }}>
+      
+      {/* Sidebar */}
+      <aside
+        style={{
+          width: '200px',
+          background: '#f8f9fa',
+          padding: '1.2rem',
