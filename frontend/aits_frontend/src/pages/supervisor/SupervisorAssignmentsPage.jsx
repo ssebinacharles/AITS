@@ -232,3 +232,89 @@ function SupervisorAssignmentsPage() {
               );
 
               const placementAssignments = getPlacementAssignments(placement.id);
+              return (
+                <div key={placement.id} style={cardStyle}>
+                  <h3>
+                    {placement.student?.registration_number || "-"} @{" "}
+                    {placement.company?.company_name || "-"}
+                  </h3>
+
+                  <p>
+                    <strong>Student:</strong>{" "}
+                    {placement.student?.user?.username || "-"}
+                  </p>
+
+                  <p>
+                    <strong>Company:</strong>{" "}
+                    {placement.company?.company_name || "-"}
+                  </p>
+
+                  <p>
+                    <strong>Status:</strong>{" "}
+                    <span
+                      className={`badge badge-${String(
+                        placement.status || ""
+                      ).toLowerCase()}`}
+                    >
+                      {placement.status || "-"}
+                    </span>
+                  </p>
+
+                  <p>
+                    <strong>Internship Period:</strong>{" "}
+                    {placement.start_date || "-"} to{" "}
+                    {placement.end_date || "-"}
+                  </p>
+
+                  <h4>Workplace Supervisor Details Submitted by Student</h4>
+
+                  <p>
+                    <strong>Name:</strong>{" "}
+                    {placement.workplace_supervisor_name || "-"}
+                  </p>
+
+                  <p>
+                    <strong>Email:</strong>{" "}
+                    {placement.workplace_supervisor_email || "-"}
+                  </p>
+
+                  <p>
+                    <strong>Phone:</strong>{" "}
+                    {placement.workplace_supervisor_phone || "-"}
+                  </p>
+
+                  <p>
+                    <strong>Title:</strong>{" "}
+                    {placement.workplace_supervisor_title || "-"}
+                  </p>
+
+                  <p>
+                    <strong>Department:</strong>{" "}
+                    {placement.workplace_supervisor_department || "-"}
+                  </p>
+
+                  <h4>Current Assigned Supervisors</h4>
+
+                  <p>
+                    <strong>Academic Supervisor:</strong>{" "}
+                    {getSupervisorDisplayName(existingAcademic?.supervisor)}
+                  </p>
+
+                  <p>
+                    <strong>Workplace Supervisor:</strong>{" "}
+                    {getSupervisorDisplayName(existingWorkplace?.supervisor)}
+                  </p>
+
+                  <p>
+                    <strong>Total Assignments:</strong>{" "}
+                    {placementAssignments.length}
+                  </p>
+
+                  {placement.status === "PENDING" && (
+                    <button
+                      onClick={() => approvePlacement(placement)}
+                      style={buttonStyle}
+                    >
+                      Approve Placement Only
+                    </button>
+                  )}
