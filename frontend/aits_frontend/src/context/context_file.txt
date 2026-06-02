@@ -70,7 +70,6 @@ const DashboardLayout = () => {
           <h2 style={{ margin: 0, fontSize: '1.2rem', color: '#444' }}>
             Internship Learning Evaluation System
           </h2>
-
           <span style={{ fontSize: '0.9rem', color: '#666' }}>
             Welcome, Student
           </span>
