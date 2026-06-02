@@ -318,3 +318,178 @@ function SupervisorAssignmentsPage() {
                       Approve Placement Only
                     </button>
                   )}
+                  <div style={formStyle}>
+                    {!existingAcademic && (
+                      <label>
+                        Academic Supervisor
+                        <select
+                          value={
+                            forms[placement.id]?.academic_supervisor_id || ""
+                          }
+                          onChange={(event) =>
+                            handleFormChange(
+                              placement.id,
+                              "academic_supervisor_id",
+                              event.target.value
+                            )
+                          }
+                          style={inputStyle}
+                        >
+                          <option value="">Select academic supervisor</option>
+
+                          {academicSupervisors.map((supervisor) => (
+                            <option key={supervisor.id} value={supervisor.id}>
+                              {getSupervisorDisplayName(supervisor)} -{" "}
+                              {supervisor.organization_name || "-"}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    )}
+
+                    {!existingWorkplace && (
+                      <label>
+                        Workplace Supervisor
+                        <select
+                          value={
+                            forms[placement.id]?.workplace_supervisor_id || ""
+                          }
+                          onChange={(event) =>
+                            handleFormChange(
+                              placement.id,
+                              "workplace_supervisor_id",
+                              event.target.value
+                            )
+                          }
+                          style={inputStyle}
+                        >
+                          <option value="">Select workplace supervisor</option>
+
+                          {workplaceSupervisors.map((supervisor) => (
+                            <option key={supervisor.id} value={supervisor.id}>
+                              {getSupervisorDisplayName(supervisor)} -{" "}
+                              {supervisor.organization_name || "-"}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    )}
+
+                    <button
+                      onClick={() => assignBothSupervisors(placement)}
+                      style={buttonStyle}
+                    >
+                      Approve & Assign Missing Supervisors
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </section>
+      )}
+
+      <section style={sectionStyle}>
+        <h2>Existing Supervisor Assignments</h2>
+
+        {assignments.length === 0 ? (
+          <p>No supervisor assignments found yet.</p>
+        ) : (
+          assignments.map((assignment) => (
+            <div key={assignment.id} style={cardStyle}>
+              <h3>{assignment.assignment_role || "Supervisor Assignment"}</h3>
+
+              <p>
+                <strong>Placement:</strong>{" "}
+                {assignment.placement?.student?.registration_number || "-"} @{" "}
+                {assignment.placement?.company?.company_name || "-"}
+              </p>
+
+              <p>
+                <strong>Student:</strong>{" "}
+                {assignment.placement?.student?.user?.username || "-"}
+              </p>
+
+              <p>
+                <strong>Supervisor:</strong>{" "}
+                {getSupervisorDisplayName(assignment.supervisor)}
+              </p>
+
+              <p>
+                <strong>Supervisor Email:</strong>{" "}
+                {assignment.supervisor?.user?.email || "-"}
+              </p>
+
+              <p>
+                <strong>Supervisor Type:</strong>{" "}
+                {assignment.supervisor?.supervisor_type ||
+                  assignment.assignment_role ||
+                  "-"}
+              </p>
+
+              <p>
+                <strong>Organization:</strong>{" "}
+                {assignment.supervisor?.organization_name || "-"}
+              </p>
+
+              <p>
+                <strong>Assigned At:</strong>{" "}
+                {assignment.assigned_at
+                  ? formatDateTime(assignment.assigned_at)
+                  : "-"}
+              </p>
+
+              <p>
+                <strong>Active:</strong>{" "}
+                <span
+                  className={
+                    assignment.is_active
+                      ? "badge badge-approved"
+                      : "badge badge-rejected"
+                  }
+                >
+                  {assignment.is_active ? "Yes" : "No"}
+                </span>
+              </p>
+            </div>
+          ))
+        )}
+      </section>
+    </div>
+  );
+}
+
+const sectionStyle = {
+  marginTop: "25px",
+};
+
+const cardStyle = {
+  border: "1px solid #ddd",
+  borderRadius: "8px",
+  padding: "16px",
+  marginBottom: "14px",
+  backgroundColor: "#fff",
+};
+
+const formStyle = {
+  display: "grid",
+  gap: "12px",
+  maxWidth: "600px",
+  marginTop: "15px",
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "10px",
+  marginTop: "5px",
+  border: "1px solid #ccc",
+  borderRadius: "5px",
+};
+
+const buttonStyle = {
+  padding: "10px 14px",
+  cursor: "pointer",
+  marginTop: "10px",
+};
+
+export default SupervisorAssignmentsPage;
