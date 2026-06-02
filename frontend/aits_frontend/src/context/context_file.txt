@@ -20,7 +20,7 @@ const DashboardLayout = () => {
           width: '200px',
           background: '#f8f9fa',
           padding: '1.2rem',
-borderRight: '1px solid #ddd',
+          borderRight: '1px solid #ddd',
           position: 'sticky',
           top: 0,
           height: '100vh'
