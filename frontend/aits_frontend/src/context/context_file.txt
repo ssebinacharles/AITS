@@ -5,3 +5,10 @@ const DashboardLayout = () => {
     display: 'block',
     padding: '10px 12px',
     marginBottom: '6px',
+    textDecoration: 'none',
+    borderRadius: '6px',
+    fontSize: '0.95rem',
+    color: isActive ? '#fff' : '#333',
+    backgroundColor: isActive ? '#007bff' : 'transparent',
+    transition: 'all 0.2s ease'
+  });
