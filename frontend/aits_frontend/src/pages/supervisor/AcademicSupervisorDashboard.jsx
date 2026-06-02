@@ -234,3 +234,95 @@ function AcademicSupervisorDashboard() {
           ))
         )}
       </Section>
+      <Section title="Submitted Logs for Review">
+        {dashboard.submittedLogs.length === 0 ? (
+          <p>No submitted logs awaiting review.</p>
+        ) : (
+          dashboard.submittedLogs.map((log) => (
+            <ListItem key={log.id}>
+              <h3>
+                Week {log.week_number}: {log.title}
+              </h3>
+
+              <p>
+                <strong>Student:</strong>{" "}
+                {log.placement?.student?.registration_number || "-"}
+              </p>
+
+              <p>
+                <strong>Company:</strong>{" "}
+                {log.placement?.company?.company_name || "-"}
+              </p>
+
+              <p>
+                <strong>Status:</strong>{" "}
+                <span
+                  className={`badge badge-${String(
+                    log.status || ""
+                  ).toLowerCase()}`}
+                >
+                  {log.status || "-"}
+                </span>
+              </p>
+
+              <p>
+                <strong>Submitted At:</strong>{" "}
+                {log.submitted_at
+                  ? formatDateTime(log.submitted_at)
+                  : "Not submitted yet"}
+              </p>
+
+              <p>
+                <strong>Academic Supervisor Score:</strong>{" "}
+                {displayScore(log.academic_score)}
+              </p>
+
+              <p>
+                <strong>Workplace Supervisor Score:</strong>{" "}
+                {displayScore(log.workplace_score)}
+              </p>
+
+              <p>
+                <strong>Final Weekly Log Mark:</strong>{" "}
+                {displayScore(log.average_score)}
+              </p>
+
+              <p>
+                <strong>Feedback Entries:</strong> {getFeedbackCount(log)}
+              </p>
+
+              <h4>Student Activities</h4>
+
+              <p>
+                <strong>Monday:</strong> {log.monday_activities || "-"}
+              </p>
+
+              <p>
+                <strong>Tuesday:</strong> {log.tuesday_activities || "-"}
+              </p>
+
+              <p>
+                <strong>Wednesday:</strong>{" "}
+                {log.wednesday_activities || "-"}
+              </p>
+
+              <p>
+                <strong>Thursday:</strong> {log.thursday_activities || "-"}
+              </p>
+
+              <p>
+                <strong>Friday:</strong> {log.friday_activities || "-"}
+              </p>
+
+              <p>
+                <strong>Challenges:</strong> {log.challenges || "-"}
+              </p>
+
+              <p>
+                <strong>Lessons Learned:</strong>{" "}
+                {log.lessons_learned || "-"}
+              </p>
+            </ListItem>
+          ))
+        )}
+      </Section>
