@@ -249,3 +249,50 @@ function StudentPlacementRequestPage() {
         !initialLoading && (
           <form onSubmit={handleSubmit} style={formStyle}>
             <h2>Company Details</h2>
+            <Input
+              label="Company Name"
+              name="company_name"
+              value={form.company_name}
+              onChange={handleChange}
+              required
+            />
+
+            <Input
+              label="Location"
+              name="location"
+              value={form.location}
+              onChange={handleChange}
+              required
+            />
+
+            <Input
+              label="Company Email"
+              name="contact_email"
+              type="email"
+              value={form.contact_email}
+              onChange={handleChange}
+            />
+
+            <Input
+              label="Company Phone"
+              name="contact_phone"
+              value={form.contact_phone}
+              onChange={handleChange}
+            />
+
+            <Input
+              label="Contact Person"
+              name="contact_person_name"
+              value={form.contact_person_name}
+              onChange={handleChange}
+            />
+
+            <h2>Workplace Supervisor Details</h2>
+
+            <Input
+              label="Supervisor Name"
+              name="workplace_supervisor_name"
+              value={form.workplace_supervisor_name}
+              onChange={handleChange}
+              required
+            />
