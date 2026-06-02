@@ -143,3 +143,58 @@ function SupervisorAssignmentsPage() {
       placement.id,
       "WORKPLACE"
     );
+   if (!existingAcademic && !academicSupervisorId) {
+      setError("Please select an academic supervisor.");
+      return;
+    }
+
+    if (!existingWorkplace && !workplaceSupervisorId) {
+      setError("Please select a workplace supervisor.");
+      return;
+    }
+
+    if (existingAcademic && existingWorkplace && placement.status !== "PENDING") {
+      setError("Both supervisors are already assigned to this placement.");
+      return;
+    }
+
+    try {
+      if (placement.status === "PENDING") {
+        await patchPlacement(placement.id, {
+          status: "APPROVED",
+        });
+      }
+
+      if (!existingAcademic) {
+        await createSupervisorAssignment({
+          placement_id: placement.id,
+          supervisor_id: Number(academicSupervisorId),
+          assignment_role: "ACADEMIC",
+          is_active: true,
+        });
+      }
+
+      if (!existingWorkplace) {
+        await createSupervisorAssignment({
+          placement_id: placement.id,
+          supervisor_id: Number(workplaceSupervisorId),
+          assignment_role: "WORKPLACE",
+          is_active: true,
+        });
+      }
+
+      setMessage("Placement approved and supervisors assigned successfully.");
+      loadData();
+    } catch (err) {
+      setError(err.message || "Failed to assign supervisors.");
+    }
+  }
+
+  if (loading) {
+    return (
+      <div style={{ padding: "30px" }}>
+        <h1>Supervisor Assignments</h1>
+        <p>Loading supervisor assignments...</p>
+      </div>
+    );
+  }
