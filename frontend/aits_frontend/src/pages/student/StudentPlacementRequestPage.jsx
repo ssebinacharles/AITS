@@ -371,3 +371,35 @@ function StudentPlacementRequestPage() {
     </div>
   );
 }
+function Input({ label, ...props }) {
+  return (
+    <label>
+      {label}
+      <input {...props} style={inputStyle} />
+    </label>
+  );
+}
+
+const formStyle = {
+  display: "grid",
+  gap: "14px",
+  maxWidth: "700px",
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "10px",
+  marginTop: "5px",
+  border: "1px solid #ccc",
+  borderRadius: "5px",
+};
+
+const boxStyle = {
+  border: "1px solid #ddd",
+  borderRadius: "8px",
+  padding: "18px",
+  marginTop: "20px",
+  background: "#fff",
+};
+
+export default StudentPlacementRequestPage;
