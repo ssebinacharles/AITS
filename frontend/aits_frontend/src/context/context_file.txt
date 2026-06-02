@@ -54,3 +54,17 @@ const DashboardLayout = () => {
           </ul>
         </nav>
       </aside>
+
+      {/* Main */}
+      <main style={{ flex: 1, background: '#f5f7fa' }}>
+        
+        {/* Header */}
+        <header
+          style={{
+            padding: '1rem 1.5rem',
+            background: '#fff',
+            borderBottom: '1px solid #eee',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
