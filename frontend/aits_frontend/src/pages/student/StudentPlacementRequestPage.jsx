@@ -29,3 +29,158 @@ function StudentPlacementRequestPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
+ function loadPageData() {
+    setInitialLoading(true);
+    setError("");
+
+    Promise.all([getCompanies(), getPlacements()])
+      .then(([companyData, placementData]) => {
+        setCompanies(asArray(companyData));
+        setPlacements(asArray(placementData));
+        setInitialLoading(false);
+      })
+      .catch((err) => {
+        setCompanies([]);
+        setPlacements([]);
+        setError(err.message || "Failed to load placement request page.");
+        setInitialLoading(false);
+      });
+  }
+
+  useEffect(() => {
+    loadPageData();
+  }, []);
+
+  const existingActivePlacement = placements.find(
+    (placement) => placement.status !== "REJECTED"
+  );
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setForm((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
+  }
+
+  function resetForm() {
+    setForm({
+      company_name: "",
+      location: "",
+      contact_email: "",
+      contact_phone: "",
+      contact_person_name: "",
+      org_department: "",
+      workplace_supervisor_name: "",
+      workplace_supervisor_email: "",
+      workplace_supervisor_phone: "",
+      workplace_supervisor_title: "",
+      workplace_supervisor_department: "",
+      start_date: "",
+      end_date: "",
+      student_notes: "",
+    });
+  }
+
+  function validateForm() {
+    if (!form.company_name.trim()) {
+      return "Please enter the company name.";
+    }
+
+    if (!form.location.trim()) {
+      return "Please enter the company location.";
+    }
+
+    if (!form.workplace_supervisor_name.trim()) {
+      return "Please enter the workplace supervisor name.";
+    }
+
+    if (!form.start_date) {
+      return "Please select the internship start date.";
+    }
+
+    if (!form.end_date) {
+      return "Please select the internship end date.";
+    }
+
+    if (form.start_date >= form.end_date) {
+      return "Internship start date must be earlier than the end date.";
+    }
+
+    return "";
+  }
+
+  async function getOrCreateCompany() {
+    const existing = companies.find(
+      (company) =>
+        company.company_name.toLowerCase().trim() ===
+        form.company_name.toLowerCase().trim()
+    );
+
+    if (existing) {
+      return existing;
+    }
+
+    return createCompany({
+      company_name: form.company_name.trim(),
+      location: form.location.trim(),
+      contact_email: form.contact_email.trim(),
+      contact_phone: form.contact_phone.trim(),
+      contact_person_name: form.contact_person_name.trim(),
+    });
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    setLoading(true);
+    setMessage("");
+    setError("");
+
+    if (existingActivePlacement) {
+      setError(
+        "You already submitted placement details. You can only submit another placement if the internship administrator rejects the previous one."
+      );
+      setLoading(false);
+      return;
+    }
+
+    const validationError = validateForm();
+
+    if (validationError) {
+      setError(validationError);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const company = await getOrCreateCompany();
+
+      await createPlacement({
+        company_id: company.id,
+        org_department: form.org_department.trim(),
+        workplace_supervisor_name: form.workplace_supervisor_name.trim(),
+        workplace_supervisor_email: form.workplace_supervisor_email.trim(),
+        workplace_supervisor_phone: form.workplace_supervisor_phone.trim(),
+        workplace_supervisor_title: form.workplace_supervisor_title.trim(),
+        workplace_supervisor_department:
+          form.workplace_supervisor_department.trim(),
+        start_date: form.start_date,
+        end_date: form.end_date,
+        student_notes: form.student_notes.trim(),
+        status: "PENDING",
+      });
+
+      const updatedPlacements = await getPlacements();
+      setPlacements(asArray(updatedPlacements));
+
+      resetForm();
+      setMessage("Placement details submitted to internship administrator.");
+    } catch (err) {
+      setError(err.message || "Failed to submit placement details.");
+    } finally {
+      setLoading(false);
+    }
+  }
