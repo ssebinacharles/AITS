@@ -296,3 +296,78 @@ function StudentPlacementRequestPage() {
               onChange={handleChange}
               required
             />
+            <Input
+              label="Supervisor Email"
+              name="workplace_supervisor_email"
+              type="email"
+              value={form.workplace_supervisor_email}
+              onChange={handleChange}
+            />
+
+            <Input
+              label="Supervisor Phone"
+              name="workplace_supervisor_phone"
+              value={form.workplace_supervisor_phone}
+              onChange={handleChange}
+            />
+
+            <Input
+              label="Supervisor Title"
+              name="workplace_supervisor_title"
+              value={form.workplace_supervisor_title}
+              onChange={handleChange}
+            />
+
+            <Input
+              label="Department in Organization"
+              name="workplace_supervisor_department"
+              value={form.workplace_supervisor_department}
+              onChange={handleChange}
+            />
+
+            <h2>Internship Period</h2>
+
+            <Input
+              label="Organization Department"
+              name="org_department"
+              value={form.org_department}
+              onChange={handleChange}
+            />
+
+            <Input
+              label="Start Date"
+              type="date"
+              name="start_date"
+              value={form.start_date}
+              onChange={handleChange}
+              required
+            />
+
+            <Input
+              label="End Date"
+              type="date"
+              name="end_date"
+              value={form.end_date}
+              onChange={handleChange}
+              required
+            />
+
+            <label>
+              Notes
+              <textarea
+                name="student_notes"
+                value={form.student_notes}
+                onChange={handleChange}
+                style={inputStyle}
+              />
+            </label>
+
+            <button type="submit" disabled={loading}>
+              {loading ? "Submitting..." : "Submit Placement Details"}
+            </button>
+          </form>
+        )
+      )}
+    </div>
+  );
+}
