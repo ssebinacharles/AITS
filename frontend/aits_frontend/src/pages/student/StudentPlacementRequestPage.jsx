@@ -184,3 +184,68 @@ function StudentPlacementRequestPage() {
       setLoading(false);
     }
   }
+ return (
+    <div style={{ padding: "30px" }}>
+      <h1>Submit Internship Placement Details</h1>
+
+      <p>
+        Submit your company and workplace supervisor details for administrator
+        approval.
+      </p>
+
+      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {initialLoading && <p>Loading placement request page...</p>}
+
+      {!initialLoading && existingActivePlacement ? (
+        <div style={boxStyle}>
+          <h2>Placement Request Already Submitted</h2>
+
+          <p>
+            You already have a placement request or placement in the system. You
+            can only submit another placement if the internship administrator
+            rejects the previous one.
+          </p>
+
+          <p>
+            <strong>Company:</strong>{" "}
+            {existingActivePlacement.company?.company_name || "-"}
+          </p>
+
+          <p>
+            <strong>Status:</strong> {existingActivePlacement.status || "-"}
+          </p>
+
+          <p>
+            <strong>Submitted At:</strong>{" "}
+            {existingActivePlacement.requested_at
+              ? formatDateTime(existingActivePlacement.requested_at)
+              : "-"}
+          </p>
+
+          <p>
+            <strong>Internship Period:</strong>{" "}
+            {existingActivePlacement.start_date || "-"} to{" "}
+            {existingActivePlacement.end_date || "-"}
+          </p>
+
+          <p>
+            <strong>Workplace Supervisor:</strong>{" "}
+            {existingActivePlacement.workplace_supervisor_name ||
+              "Not yet confirmed"}
+          </p>
+
+          <p>
+            <strong>Workplace Supervisor Email:</strong>{" "}
+            {existingActivePlacement.workplace_supervisor_email || "-"}
+          </p>
+
+          <p>
+            <strong>Student Notes:</strong>{" "}
+            {existingActivePlacement.student_notes || "-"}
+          </p>
+        </div>
+      ) : (
+        !initialLoading && (
+          <form onSubmit={handleSubmit} style={formStyle}>
+            <h2>Company Details</h2>
